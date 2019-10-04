@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+    <style>
+        body{
+            margin: 0 auto;
+            width: 1000px;
+        }
+        #div1{
+            margin: 0 auto;
+            width:600px;
+        }
+        table tr th,
+        table tr td {
+            border: 1px solid gray;
+            text-align: center;
+            height: 40px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 600px;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">
+    <table>
+        <thead>
+        <tr>
+            <td>商品序号</td>
+            <td>商品编号</td>
+            <td>商品名称</td>
+            <td>商品数量</td>
+            <td>商品单价</td>
+            <td>移除</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(item,index) in list" :key="index">
+            <td>{{item.num}}</td>
+            <td>{{item.port}}</td>
+            <td>{{item.name}}</td>
+            <td>
+                <button @click="doClick(index)">+</button>{{item.count}}
+                <button @click="handleClick(index)">-</button>
+            </td>
+            <td>{{item.price}}</td>
+            <td><button @click="delClick(index)">删除</button></td>
+        </tr>
+        <tr>
+            <td>总计:{{all}}元</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    new Vue({
+        el: "#div1",
+        data() {
+            return{
+                list:[{num:'1',port:'0001',name:'iphone',price:'6188',count:'0'},
+                    {num:'2',port:'0002',name:'华为p30',price:'5436',count:'0'},
+                    {num:'3',port:'0003',name:'小米RedmiBook',price:'4999',count:'0'},
+                    {num:'4',port:'0004',name:'华为畅享9e',price:'3980',count:'1'}],
+                all:0
+            }
+        },
+        methods:{
+            doClick(index){
+                this.list[index].count++;
+                this.price1;
+            },
+            handleClick(index) {
+                this.list[index].count--;
+                this.price1;
+            },
+            delClick(index){
+                this.list.splice(index,1);
+                this.price1;
+            }
+        },
+        computed:{
+            price1(){
+                var allPrice=0;
+                this.list.forEach(function (item,index) {
+                    allPrice+=item.count*item.price;
+                })
+                this.all=parseFloat(allPrice);
+            }
+        },
+        created:function () {
+            console.log(this.price1);
+        }
+
+    })
+</script>
+</body>
+</html>

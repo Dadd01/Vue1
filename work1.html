@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+    <style type="text/css">
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        .main{
+            width: 1000px;
+            margin: 0 auto;
+        }
+        .img{
+            float: left;
+        }
+        .border{
+            width: 400px;
+            padding: 3px;
+            margin: 10px 80px;
+            float: left;
+        }
+        .border1{
+            border:#0000aa 1px solid;
+            line-height: 20px;
+        }
+        #small{
+            width:30px;
+        }
+    </style>
+</head>
+<body>
+<div id="work1">
+    <div :class="classStr">
+        <img :src="list[current].url" class="img">
+        <div :class="[borderStr,{'border1' :current==index}]" v-for="(item,index) in list" :key="index" @click="handleClick(index)">
+            <img id="small" :src="item.url">
+            <label>{{item.color}}     {{item.name}}      {{item.style}}</label>
+        </div>
+    </div>
+</div>
+<script>
+    new Vue({
+        el:'#work1',
+        data(){
+            return{
+                list:[{url:'img/1.jpg',color:'白色',name:"北欧餐椅现代简约靠背椅皮椅子",style:"网红椅子"},
+                    {url:'img/2.jpg',color:'橘色',name:"北欧餐椅现代简约靠背椅皮椅子",style:"网红椅子"},
+                    {url:'img/3.jpg',color:'绿色',name:"北欧餐椅现代简约靠背椅皮椅子",style:"网红椅子"},
+                    {url:'img/4.jpg',color:'蓝色',name:"北欧餐椅现代简约靠背椅皮椅子",style:"网红椅子"}],
+                classStr:'main',
+                borderStr:'border',
+                current:0
+            }
+        },
+        methods:{
+            handleClick(index){
+                this.current=index;
+            }
+        }
+    })
+</script>
+</body>
+</html>
